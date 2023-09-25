@@ -27,11 +27,12 @@ galleryList.insertAdjacentHTML("afterbegin",galleryHtml);
 
 galleryList.addEventListener('click', (event) => {
     event.preventDefault();
-    
-    const imgElem = event.target.firstElementChild;
-    const instance = basicLightbox.create(`<img src="${imgElem.href}">`);
+
+    const imgElem = event.target;
+    const instance = basicLightbox.create(`<img src="${imgElem.dataset.source}">`);
 
     instance.show();
+    
     document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape') {
             instance.close();
