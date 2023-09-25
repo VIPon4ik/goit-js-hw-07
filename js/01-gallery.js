@@ -26,6 +26,8 @@ galleryList.insertAdjacentHTML("afterbegin",galleryHtml);
 // Opening functional
 
 galleryList.addEventListener('click', (event) => {
+    event.preventDefault();
+    
     const imgElem = event.target.firstElementChild;
     const instance = basicLightbox.create(`<img src="${imgElem.href}">`);
 
