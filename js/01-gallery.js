@@ -25,6 +25,8 @@ galleryList.insertAdjacentHTML("afterbegin",galleryHtml);
 
 // Opening functional
 
+let isEventListenerAdded = false;
+
 galleryList.addEventListener('click', (event) => {
     event.preventDefault();
 
@@ -32,10 +34,17 @@ galleryList.addEventListener('click', (event) => {
     const instance = basicLightbox.create(`<img src="${imgElem.dataset.source}">`);
 
     instance.show();
-    
-    document.addEventListener('keydown', (event) => {
+
+    if (!isEventListenerAdded) {
+        document.addEventListener('keydown', closeOnEscape);
+        isEventListenerAdded = true;
+    }
+
+    function closeOnEscape(event) {
         if (event.key === 'Escape') {
             instance.close();
+            document.removeEventListener('keydown', closeOnEscape);
+            isEventListenerAdded = false;
         }
-    });
+    }
 });
